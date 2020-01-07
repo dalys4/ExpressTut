@@ -1,28 +1,3 @@
-
-
-// export default{
-//   debug: true,
-//   //devtool: 'inline-source-map',
-//   noInfo: false,
-//   entry: [
-//     path.resolve(__dirname, 'src/index')
-//   ],
-//   target: 'web',
-//   output: {
-//     path: path.resolve(__dirname, 'src'),
-//     publicPath: '/',
-//     filename: 'bundle.js'
-//   },
-
-//   //plugins: [],
-//   //module: {
-//   //  loaders: [
-//   //    {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
-//   //    {test: /\.css$/, loaders: ['style','css']}
-//   //  ]
-//   //}
-// };
-
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniSccExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
@@ -33,7 +8,7 @@ module.exports = {
   devtool: 'inline-source-map',
   target: 'web',
   entry: [
-     path.resolve(__dirname, 'src/index')
+     path.resolve(__dirname, 'src/views')
   ],
   //devServer: {
   //  //contentBase: path.resolve(__dirname, 'src')

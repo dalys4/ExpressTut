@@ -4,17 +4,17 @@ import open from 'open';
 import chalk from 'chalk';
 import webpack from 'webpack';
 import config from '../webpack.config.dev';
-import middleware from 'webpack-dev-middleware';
-import log4js from 'log4js';
+var middleware = require('webpack-dev-middleware');
+var $d = require('debug')('tut');
 
 /* eslint-disable no-console */
-
 const port = 3000;
 const app = express();
 const compiler = webpack(config);
 
-var logger = log4js.getLogger();
-logger.level = 'trace';
+
+//var logger = log4js.getLogger();
+//logger.level = 'trace';
 
 
 app.use(middleware(compiler, {
@@ -23,8 +23,8 @@ app.use(middleware(compiler, {
 }));
 
 app.get('/', function(req, res){
-  //console.log(path.join(__dirname, '../src/index.html'));
-  res.sendFile(path.join(__dirname, '../src/index.html'));
+  $d(path.join(__dirname, 'src', '/Views/index.html'));
+  res.sendFile(path.join(__dirname, '../src/views/index.html'));
 });
 
 app.get('/users', function(req, res){
@@ -43,7 +43,8 @@ app.listen(port, function(err){
   } else {
     open('http://localhost:' + port);
 
-    logger.info(chalk.blue(`Server Listening on Port:${port}...`));
+    //logger.info(chalk.blue(`Server Listening on Port:${port}...`));
+    $d(chalk.blue(`Server Listening on Port:${port}...`));
 
   }
 });
