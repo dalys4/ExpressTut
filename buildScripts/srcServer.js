@@ -12,9 +12,14 @@ const $d = require('debug')('tut');
 const port = 3000;
 const app = express();
 const compiler = webpack(config);
-const bookRouter = express.Router();
 
 
+const nav = [
+  { link: '/Books', title: 'Books' },
+  { link: '/Authors', title: 'Authors' },
+];
+
+const bookRouter = require('../src/routes/bookRoutes')(nav);
 // var logger = log4js.getLogger();
 // logger.level = 'trace';
 
@@ -33,51 +38,6 @@ app.use('/js', express.static(path.join(__dirname, '../node_modules/jquery/dist'
 
 app.set('views', path.join(__dirname, '../src/views'));
 app.set('view engine', 'ejs');
-
-const books = [
-  {
-    title: 'War and Peace',
-    genre: 'Historical Fiction',
-    author: 'Lev Niko Tolstoy',
-    read: false
-  },
-  {
-    title: 'Les Miserables',
-    genre: 'Historical Fiction',
-    author: 'Victor Hugo',
-    read: false
-  },
-  {
-    title: 'The Time Machine',
-    genre: 'Science Fiction',
-    author: 'Jules Verne',
-    read: false
-  },
-  {
-    title: 'The Dark World',
-    genre: 'Fantasy',
-    author: 'Henry Kuttner',
-    read: false
-  },
-];
-
-bookRouter.route('/')
-  .get((req, res) => {
-    // res.send('hello books');
-    res.render('books', {
-      nav: [
-        { link: '/Books', title:'Books' },
-        { link: '/Authors', title:'Authors' }
-      ],
-      title: 'Welcome to EJS',
-      books,
-    });
-  });
-
-bookRouter.route('/single')
-  .get((req, res) => {
-    res.send('hello single book');
-});
 
 app.use('/books', bookRouter);
 
@@ -104,15 +64,6 @@ app.get('/getView', (req, res) => {
     ],
     title: 'Welcome to EJS'
   });
-});
-
-app.get('/users', (req, res) => {
-  // console.log(path.join(__dirname, 'users'));
-  res.json([
-    {
-      id: 1, firstName: 'Tina', lastName: 'Lee', email: 'tina@gmail.com',
-    },
-  ]);
 });
 
 app.listen(port, (err) => {
