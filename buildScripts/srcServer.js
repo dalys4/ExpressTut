@@ -12,6 +12,7 @@ const $d = require('debug')('tut');
 const port = 3000;
 const app = express();
 const compiler = webpack(config);
+const bookRouter = express.Router();
 
 
 // var logger = log4js.getLogger();
@@ -30,28 +31,86 @@ app.use('/css', express.static(path.join(__dirname, '../node_modules/bootstrap/d
 app.use('/js', express.static(path.join(__dirname, '../node_modules/bootstrap/dist/js')));
 app.use('/js', express.static(path.join(__dirname, '../node_modules/jquery/dist')));
 
-app.get('/', (req, res) => {
-  $d(path.join(__dirname, 'src', '/views/index.html'));
-  res.sendFile(path.join(__dirname, '../src/views/index.html'));
+app.set('views', path.join(__dirname, '../src/views'));
+app.set('view engine', 'ejs');
+
+const books = [
+  {
+    title: 'War and Peace',
+    genre: 'Historical Fiction',
+    author: 'Lev Niko Tolstoy',
+    read: false
+  },
+  {
+    title: 'Les Miserables',
+    genre: 'Historical Fiction',
+    author: 'Victor Hugo',
+    read: false
+  },
+  {
+    title: 'The Time Machine',
+    genre: 'Science Fiction',
+    author: 'Jules Verne',
+    read: false
+  },
+  {
+    title: 'The Dark World',
+    genre: 'Fantasy',
+    author: 'Henry Kuttner',
+    read: false
+  },
+];
+
+bookRouter.route('/')
+  .get((req, res) => {
+    // res.send('hello books');
+    res.render('books', {
+      nav: [
+        { link: '/Books', title:'Books' },
+        { link: '/Authors', title:'Authors' }
+      ],
+      title: 'Welcome to EJS',
+      books,
+    });
+  });
+
+bookRouter.route('/single')
+  .get((req, res) => {
+    res.send('hello single book');
 });
 
+app.use('/books', bookRouter);
+
+app.get('/', (req, res) => {
+  // $d(path.join(__dirname, 'src', '/views/index.html'));
+  // res.sendFile(path.join(__dirname, '../src/views/index.html'));
+
+  res.render('index', {
+    nav: [
+      { link: '/Books', title: 'Books' },
+      { link: '/Authors', title:'Authors' }
+    ],
+    title: 'Welcome to EJS'
+  });
+});
 
 app.get('/getView', (req, res) => {
   $d(path.join(__dirname, 'src', '/Views/index.html'));
-  res.sendFile(path.join(__dirname, '../src/views/index.html'));
+  // res.sendFile(path.join(__dirname, '../src/views/index.html'));
+  res.render('index', {
+    nav: [
+      { link: '/Books', title: 'Books' },
+      { link: '/Authors', title:'Authors' }
+    ],
+    title: 'Welcome to EJS'
+  });
 });
 
 app.get('/users', (req, res) => {
   // console.log(path.join(__dirname, 'users'));
   res.json([
     {
-      id: 1, firstName: 'Bob', lastName: 'Smith', email: 'bob@gmail.com',
-    },
-    {
-      id: 2, firstName: 'Tammy', lastName: 'Norton', email: 'tammy@gmail.com',
-    },
-    {
-      id: 3, firstName: 'Tina', lastName: 'Lee', email: 'tina@gmail.com',
+      id: 1, firstName: 'Tina', lastName: 'Lee', email: 'tina@gmail.com',
     },
   ]);
 });

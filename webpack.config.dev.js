@@ -1,4 +1,4 @@
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+// const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniSccExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 // const webpack = require("webpack");
@@ -7,11 +7,11 @@ module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   target: 'node',
-  node: {
-    __dirname: false,
-  },
+  // node: {
+  //   __dirname: false,
+  // },
   entry: [
-    path.resolve(__dirname, 'src/index.js'),
+    './src/index.htmnl',
   ],
   // devServer: {
   //  //contentBase: path.resolve(__dirname, 'src')
@@ -53,11 +53,6 @@ module.exports = {
     }],
   },
   plugins: [
-    new HtmlWebPackPlugin({
-      template: './src/index.html',
-      filename: './index.html',
-    }),
-
     new MiniSccExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',
