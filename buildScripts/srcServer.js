@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable import/no-extraneous-dependencies */
+
 import express from 'express';
 import path from 'path';
 import open from 'open';
@@ -8,7 +11,7 @@ import config from '../webpack.config.dev';
 const middleware = require('webpack-dev-middleware');
 const $d = require('debug')('tut');
 
-/* eslint-disable no-console */
+
 const port = 3000;
 const app = express();
 const compiler = webpack(config);
