@@ -44,7 +44,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.19.1",
     "eslint-watch": "^6.0.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "extract-text-webpack-plugin": "^3.0.1",
     "faker": "^4.1.0",
     "file-loader": "^4.3.0",
